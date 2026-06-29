@@ -1,32 +1,39 @@
-import React from 'react'
-import {createBrowserRouter, RouterProvider} from "react-router-dom"
-import Home from './components/Home'
-import About from './components/About'
-import Header from './components/Header'
+﻿import './App.css'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import Services from './components/Services'
+import Projects from './components/Projects'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
+import About from './pages/About'
+import AdminLogin from './pages/admin/AdminLogin'
+import AdminDashboard from './pages/admin/AdminDashboard'
 
-let router = createBrowserRouter([
-  {
-    path:'/',
-    element:<Home></Home>,
-    children:[
-      {
-        path:"/",
-        element:<Header></Header>
-      },
-      {
-        path:"/About",
-        element:<About></About>
-      }
-    ]
-  }
-])
-
-const App = () => {
+function Website() {
   return (
-    <div>
-      <RouterProvider router={router}></RouterProvider>
-    </div>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Services />
+        <Projects />
+        <Contact />
+      </main>
+      <Footer />
+      <div className="quick-actions email-only" aria-label="Quick contact action"><a href="mailto:prasadsangamad162@gmail.com" aria-label="Email">Mail</a></div>
+    </>
   )
 }
 
+function App() {
+  const path = window.location.pathname
+  if (path === '/admin/login') return <AdminLogin />
+  if (path.startsWith('/admin/dashboard')) return <AdminDashboard />
+  return <Website />
+}
+
 export default App
+
+
+
